@@ -19,7 +19,7 @@ import com.bezkoder.springjwt.security.services.MovieFavouriteService;
 
 import com.bezkoder.springjwt.models.MovieFavourite;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/test")
 public class MovieFavouriteController {

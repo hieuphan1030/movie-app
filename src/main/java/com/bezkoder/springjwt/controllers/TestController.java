@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
