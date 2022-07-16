@@ -7,33 +7,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movieFavourites")
-public class MovieFavourite {
+@Table(name = "image")
+public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Long user;
+	private String url;
+
 	private Long movie;
-	
-	private String path;
-	
-	private String title;
-	
-	public String getTitle() {
-		return title;
+
+	public Image(String url, Long movie) {
+		this.url = url;
+		this.movie = movie;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	public Image() {
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -44,12 +35,12 @@ public class MovieFavourite {
 		this.id = id;
 	}
 
-	public Long getUser() {
-		return user;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setUser(Long user) {
-		this.user = user;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Long getMovie() {
@@ -60,4 +51,8 @@ public class MovieFavourite {
 		this.movie = movie;
 	}
 
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", url=" + url + ", movie=" + movie + "]";
+	}
 }

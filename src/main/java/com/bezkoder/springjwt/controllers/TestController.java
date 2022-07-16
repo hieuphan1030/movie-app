@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,6 @@ public class TestController {
 	UserRepository userRepository;
 
 	@GetMapping("/admin/all")
-	@PreAuthorize("hasRole('ADMIN')")
 	public List<User> showAllUser() {
 		List<User> result = (List<User>) userRepository.findAll();
 		if (result.size() > 0)
@@ -29,7 +30,10 @@ public class TestController {
 		else
 			return new ArrayList<User>();
 	}
-
+	@DeleteMapping("/admin/{id}")
+	public void deleteMovieFavourite(@PathVariable Long id) {
+		userRepository.deleteById(id);
+	}
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";

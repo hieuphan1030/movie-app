@@ -77,13 +77,13 @@ public class AuthController {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Tài khoản này đã tồn tại!"));
+          .body(new MessageResponse("406"));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Email này đã được dùng!"));
+          .body(new MessageResponse("407"));
     }
 
     // Create new user's account
@@ -100,6 +100,6 @@ public class AuthController {
     user.setRoles(roles);
     userRepository.save(user);
 
-    return ResponseEntity.ok(new MessageResponse("Đăng kí thành công bạn có thể đăng nhập ngay!"));
+    return ResponseEntity.ok(new MessageResponse("200"));
   }
 }

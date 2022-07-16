@@ -22,5 +22,8 @@ public class UserService {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User is not exist with id: " + id));
 	}
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
+	}
 
 }

@@ -36,7 +36,6 @@ public class UserController {
 	UserService userService;
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> showUpdate(@PathVariable("id") long id) {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
@@ -45,26 +44,25 @@ public class UserController {
 	}
 
 	@PostMapping("/password/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> updatePassword(@PathVariable("id") long id, @Valid @RequestBody UpdatePassword update) {
 
 		User oldUser = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 		if (update.getNewPassword().equals(update.getOldPassword())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Mật khẩu mới và cũ không được trùng!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("406"));
 
 		}
 
 		if (!encoder.matches(update.getOldPassword(), oldUser.getPassword())) {
 
-			return ResponseEntity.badRequest().body(new MessageResponse("Mật khẩu hiện tại không đúng!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("407"));
 
 		} else {
 			oldUser.setPassword(encoder.encode(update.getNewPassword()));
 			userRepository.save(oldUser);
 		}
 
-		return ResponseEntity.ok(new MessageResponse("Cập nhập mật khẩu thành công!"));
+		return ResponseEntity.ok(new MessageResponse("200"));
 	}
 
 }

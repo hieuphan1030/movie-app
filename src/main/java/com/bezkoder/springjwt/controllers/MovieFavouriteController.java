@@ -27,28 +27,24 @@ public class MovieFavouriteController {
 	private MovieFavouriteService movieFavouriteService;
 
 	@GetMapping("/movie/favourite/{user}/{movie}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<MovieFavourite> getMovieFavourite(@PathVariable Long user, @PathVariable Long movie) {
 		MovieFavourite movieFavourite = movieFavouriteService.getMovieFavourite(user, movie);
 		return new ResponseEntity<>(movieFavourite, HttpStatus.OK);
 	}
 
 	@GetMapping("/movie/favourite/{user}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<List<MovieFavourite>> getAllMovieFavourite(@PathVariable Long user) {
 		List<MovieFavourite> movieFavourite = movieFavouriteService.getAllMovieFavourite(user);
 		return new ResponseEntity<>(movieFavourite, HttpStatus.OK);
 	}
 
 	@PostMapping("/movie/favourite")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<MovieFavourite> addProject(@RequestBody MovieFavourite movieFavourite) {
-
+		System.out.println(movieFavourite.getTitle());
 		return new ResponseEntity<>(movieFavouriteService.addMovieFavourite(movieFavourite), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/movie/favourite/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public void deleteMovieFavourite(@PathVariable Long id) {
 		movieFavouriteService.deleteMovieFavourite(id);
 	}
